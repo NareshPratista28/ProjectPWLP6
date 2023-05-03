@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_MataKuliah;
 use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
@@ -65,6 +67,13 @@ class MahasiswaController extends Controller
         $Mahasiswa = Mahasiswa::find($Nim);
         return view('mahasiswas.detail', compact('Mahasiswa'));
     }
+    public function nilai($Nim)
+    {
+        //menampilkan detail data dengan menemukan/berdasarkan Nim Mahasiswa
+        $Mahasiswa = Mahasiswa::find($Nim);
+        $nilai = Mahasiswa_Matakuliah::where('mahasiswa_id', $Nim)->get();
+        return view ('mahasiswas.khs',compact('Mahasiswa', 'nilai'));
+    }
     public function edit($Nim)
     {
         //menampilkan detail data dengan menemukan berdasarkan Nim Mahasiswa untuk diedit
@@ -117,5 +126,15 @@ class MahasiswaController extends Controller
         $keyword = $request->search;
         $mahasiswas = Mahasiswa::where('Nama', 'like', '%' . $keyword . '%')->paginate(5);
         return view('mahasiswas.index', compact('mahasiswas'))->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function khs($Nim)
+    {
+        //$Mahasiswa = Mahasiswa::find($nim);
+        $Mahasiswa = Mahasiswa::find($Nim);
+        $Matakuliah = MataKuliah::all();
+        //$MataKuliah = $Mahasiswa->MataKuliah()->get();
+        $Mahasiswa_Matakuliah = Mahasiswa_MataKuliah::where('mahasiswa_id', '=', $Nim)->get();
+        return view('mahasiswas.khs', ['Mahasiswa' => $Mahasiswa], ['Mahasiswa_Matakuliah' => $Mahasiswa_Matakuliah], ['Matakuliah' => $Matakuliah], compact('Mahasiswa_Matakuliah'));
     }
 };
