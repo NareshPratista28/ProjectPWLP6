@@ -23,16 +23,18 @@
                             <th>Semester</th>
                             <th>Nilai</th>
                         </tr>
-                        @foreach ($nilai as $n)
+                        @foreach ($Mahasiswa_Matakuliah as $Mahasiswa_Matkul)
                             <tr>
-                                <td>{{ $n->matakuliah->nama_matkul }}</td>
-                                <td>{{ $n->matakuliah->sks }}</td>
-                                <td>{{ $n->matakuliah->semester }}</td>
-                                <td>{{ $n->nilai }}</td>
+                                <td>{{ $Mahasiswa_Matkul->matakuliah->nama_matkul }}</td>
+                                <td>{{ $Mahasiswa_Matkul->matakuliah->sks }}</td>
+                                <td>{{ $Mahasiswa_Matkul->matakuliah->semester }}</td>
+                                <td>{{ $Mahasiswa_Matkul->nilai }}</td>
                         @endforeach
                         </tr>
                     </table>
-                </div><a class="btn btn-success mt-3" href="{{ route('mahasiswas.index') }}">Kembali</a>
+                    <a class="btn btn-secondary mt-3" href="{{ route('mahasiswas.index') }}">Kembali</a>
+                    <a class="btn btn-success mt-3" href="{{ route('print_pdf', $Mahasiswa->Nim) }}">Cetak ke PDF</a>
+                </div>
             </div>
         </div>
     </div>

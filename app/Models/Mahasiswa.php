@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model; //Model Eloquent
 use App\Models\Kelas;
 
-class Mahasiswa extends Model //Definisi Model
+class Mahasiswa extends Model 
 {
-    protected $table = "mahasiswas"; // Eloquent akan membuat model mahasiswa menyimpan record di tabel mahasiswas
+    protected $table = "mahasiswas";
     public $timestamps = false;
-    protected $primaryKey = 'Nim'; // Memanggil isi DB Dengan primarykey
+    protected $primaryKey = 'Nim'; 
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +22,7 @@ class Mahasiswa extends Model //Definisi Model
     protected $fillable = [
         'Nim',
         'Nama',
+        'featured_image',
         'Tanggal_Lahir',
         'kelas_id',
         'Jurusan',
